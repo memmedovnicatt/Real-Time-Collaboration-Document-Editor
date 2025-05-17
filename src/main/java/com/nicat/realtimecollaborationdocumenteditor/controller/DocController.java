@@ -51,7 +51,7 @@ public class DocController {
 
     @GetMapping("/shared")
     @ResponseStatus(HttpStatus.OK)
-    public List<Permission> getSharedDoc() {
+    public List<String> getSharedDoc() {
         return docService.getSharedDoc();
     }
 }
