@@ -32,14 +32,13 @@ public class DocumentAuthorizationService {
         return doc.getOwnerUsername().equals(username);
     }
 
-    boolean editAccess(String username, Permission permission) {
-        if (permission.getWhoGaveUsername().equals(username)) return true;
-        return permission.getUserPermissions() == UserPermissions.EDIT
-                && permission.getToUserName().equals(username);
+    boolean hasReadAccess(String docId) {
+        String username = SecurityUtil.getCurrentUsername();
+        return permissionRepository.countByToUserName(username) > 0;
     }
 
-    boolean hasReadAccess(String docId) {
-return true;
-
+    boolean hasEditAccess(String docId) {
+        String username = SecurityUtil.getCurrentUsername();
+        return permissionRepository.countByToUserNameAndUserPermissions(username, UserPermissions.EDIT) > 0;
     }
 }

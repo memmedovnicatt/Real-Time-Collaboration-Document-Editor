@@ -140,13 +140,14 @@ public class DocService {
         log.info("Permission was successfully saved");
     }
 
-    public List<Permission> getSharedDoc() {
+    public List<String> getSharedDoc() {
         log.info("getSharedDoc method was started");
+
         String username = SecurityUtil.getCurrentUsername();
-        return permissionRepository.findAllByToUserName(username);
-//        return permissionRepository.findAllByToUserName(username)
-//                .stream()
-//                .map(permission -> permission.getDocId())
-//                .toList();
+
+        return permissionRepository.findAllByToUserName(username)
+                .stream()
+                .map(Permission::getDocId)
+                .toList();
     }
 }
