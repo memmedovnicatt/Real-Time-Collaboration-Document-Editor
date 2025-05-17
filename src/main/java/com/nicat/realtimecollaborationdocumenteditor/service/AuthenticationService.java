@@ -1,8 +1,8 @@
 package com.nicat.realtimecollaborationdocumenteditor.service;
 
-import com.nicat.realtimecollaborationdocumenteditor.dao.entity.Authority;
-import com.nicat.realtimecollaborationdocumenteditor.dao.entity.Token;
-import com.nicat.realtimecollaborationdocumenteditor.dao.entity.User;
+import com.nicat.realtimecollaborationdocumenteditor.dao.document.Authority;
+import com.nicat.realtimecollaborationdocumenteditor.dao.document.Token;
+import com.nicat.realtimecollaborationdocumenteditor.dao.document.User;
 import com.nicat.realtimecollaborationdocumenteditor.dao.repository.AuthRepository;
 import com.nicat.realtimecollaborationdocumenteditor.dao.repository.TokenRepository;
 import com.nicat.realtimecollaborationdocumenteditor.dao.repository.UserRepository;
@@ -15,17 +15,22 @@ import com.nicat.realtimecollaborationdocumenteditor.model.dto.response.Register
 import com.nicat.realtimecollaborationdocumenteditor.model.enums.Roles;
 import com.nicat.realtimecollaborationdocumenteditor.model.exception.child.AlreadyExistException;
 import com.nicat.realtimecollaborationdocumenteditor.model.exception.child.NotFoundException;
+import com.nicat.realtimecollaborationdocumenteditor.model.exception.child.PasswordMismatchException;
 import com.nicat.realtimecollaborationdocumenteditor.model.exception.child.UnauthorizedException;
 import com.nicat.realtimecollaborationdocumenteditor.utils.JwtUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.security.sasl.AuthenticationException;
 import java.util.List;
 
 @Service
@@ -90,7 +95,8 @@ public class AuthenticationService {
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
                         loginRequest.getPassword()
                 ));
-        
+
+
         var accessToken = jwtUtil.generateAccessToken(user);
         var refreshToken = jwtUtil.generateRefreshToken(user);
 

@@ -1,28 +1,26 @@
-package com.nicat.realtimecollaborationdocumenteditor.dao.entity;
+package com.nicat.realtimecollaborationdocumenteditor.dao.document;
 
-
+import com.nicat.realtimecollaborationdocumenteditor.model.enums.Roles;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "tokens")
-@Getter
-@Setter
+import java.util.List;
+
+@Document(collection = "authority")
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Token {
+public class Authority {
     @Id
     String id;
 
-    String accessToken;
-    String refreshToken;
+    Roles role;
 
     @DBRef
-    User user;
-
-    Boolean isLoggedOut = false;
+    List<User> users;
 }

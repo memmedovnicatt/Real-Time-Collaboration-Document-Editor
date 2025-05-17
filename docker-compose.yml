@@ -12,5 +12,13 @@ services:
     volumes:
       - mongodb_data:/data/db
 
+  redis:
+    image: redis:7.4.3
+    container_name: redis-server-2
+    restart: no
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--requirepass", "redis"]
+
 volumes:
   mongodb_data:

@@ -1,6 +1,6 @@
 package com.nicat.realtimecollaborationdocumenteditor.utils;
 
-import com.nicat.realtimecollaborationdocumenteditor.dao.entity.User;
+import com.nicat.realtimecollaborationdocumenteditor.dao.document.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -52,7 +52,7 @@ public class JwtUtil {
     private String buildToken(Map<String, Object> extraClaims, User user, Long expiration) {
         return Jwts
                 .builder()
-                .setSubject(user.getEmail())
+                .setSubject(user.getUsername())
                 .addClaims(extraClaims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
@@ -100,8 +100,8 @@ public class JwtUtil {
     }
 
     public boolean isTokenValid(String token, User user) {
-        final String userEmail = extractUsername(token);
-        return userEmail.equals(user.getEmail()) && !isTokenExpired(token);
+        final String username = extractUsername(token);
+        return username.equals(user.getUsername()) && !isTokenExpired(token);
     }
 
     public boolean isTokenExpired(String token) {

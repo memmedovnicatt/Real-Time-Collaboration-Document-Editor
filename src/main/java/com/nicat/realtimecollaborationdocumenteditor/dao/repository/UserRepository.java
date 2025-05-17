@@ -1,6 +1,6 @@
 package com.nicat.realtimecollaborationdocumenteditor.dao.repository;
 
-import com.nicat.realtimecollaborationdocumenteditor.dao.entity.User;
+import com.nicat.realtimecollaborationdocumenteditor.dao.document.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

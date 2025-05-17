@@ -1,4 +1,4 @@
-package com.nicat.realtimecollaborationdocumenteditor.dao.entity;
+package com.nicat.realtimecollaborationdocumenteditor.dao.document;
 
 import com.nicat.realtimecollaborationdocumenteditor.model.enums.Roles;
 import lombok.*;
@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Document(collection = "users")
@@ -29,6 +30,7 @@ public class User implements UserDetails {
     Roles role;
     String email;
 
+    Set<String> sharedDocIds;
 
     @DBRef
     List<Token> tokens;
