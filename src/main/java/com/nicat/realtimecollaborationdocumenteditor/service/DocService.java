@@ -131,7 +131,6 @@ public class DocService {
                 .orElseThrow(() -> new NotFoundException("Not found document"));
         log.info("Doc was found with this id : {}", docId);
         permission.setDocId(docId);
-        user.setSharedDocIds(Collections.singleton(docId));
         permission.setToUserName(toGaveUsername);
         permission.setWhoGaveUsername(username);
         permission.setUserPermissions(UserPermissions.VIEW);

@@ -10,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -103,6 +104,12 @@ public class JwtUtil {
         final String username = extractUsername(token);
         return username.equals(user.getUsername()) && !isTokenExpired(token);
     }
+
+    public boolean isTokenValidForUserDetails(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+    }
+
 
     public boolean isTokenExpired(String token) {
         try {
